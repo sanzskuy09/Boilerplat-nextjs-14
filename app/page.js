@@ -1,15 +1,13 @@
 "use client";
-import Image from "next/image";
-import { useDispatch, useSelector, useStore } from "react-redux";
-
-import ReduxProvider from "./StoreProvider";
 
 import TemplatePage from "@/template/page";
+import LoginPage from "./login/pages";
+
+import { useAppSelector } from "@/libs/hook";
 
 export default function Home() {
-  return (
-    <ReduxProvider>
-      <TemplatePage />
-    </ReduxProvider>
-  );
+  const authUser = useAppSelector((state) => state?.auth?.isLogin ?? false);
+  // console.log(authUser);
+
+  return authUser ? <TemplatePage /> : <LoginPage />;
 }
